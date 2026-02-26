@@ -39,10 +39,11 @@ export default defineUserConfig({
         },
         // 添加新的侧边栏
         {
-          text: 'Vuepress静态blog配置搭建',
+          text: 'Blog创建赛博笔记',
           collapsible: true,
           children: [
-            '/guide/note1.md',
+            '/guide/Vue.md',
+            '/guide/githubpages.md',
           ],
         },
 
