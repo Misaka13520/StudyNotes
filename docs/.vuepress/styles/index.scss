@@ -1,4 +1,11 @@
-/* 1. 针对 VuePress 2 默认主题 Hero 区域的容器 */
+/* ============================================================
+   区域 1：Hero 主视觉容器
+   作用：控制首页大标题 + 按钮区域的整体布局
+   常用改动：
+     - min-height  → 调高/降低英雄区占屏幕的高度比例
+     - justify-content → 垂直排列方向（center=垂直居中）
+     - background-color → 背景色（transparent=透明，让背景图透出来）
+   ============================================================ */
 .vp-hero, .hero, .vp-home-hero {
   position: relative; 
   z-index: 1; 
@@ -23,12 +30,17 @@
   background-color: transparent !important; 
 }
 
-/* 2. 背景图片层 (中层) */
-/* 
-   修改：不再使用 ::before 伪元素，因为伪元素在某些主题结构下 fixed 定位会失效。
-   我们直接在 body 上挂载一个全局的背景层，确保它永远在最底层且固定。
-   新增：只在首页 (.is-home) 显示背景图，其他页面隐藏。
-*/
+/* ============================================================
+   区域 2：首页全屏背景图
+   作用：只在首页（.is-home）显示，其他页面自动隐藏
+   常用改动：
+     - background-image: url('/xxx.png')  → 替换背景图片文件名
+                                            图片放在 docs/.vuepress/public/ 目录下
+     - background-position: center top   → 调整图片显示位置
+                                            （center center=正中, center top=顶部居中）
+     - --bg-brightness（在 client.js 控制）→ 调整亮度，1.0=原始，0.6=偏暗
+     - --bg-blur（在 client.js 控制）      → 调整模糊度，0px=清晰，8px=明显模糊
+   ============================================================ */
 body.is-home::before {
   content: "";
   position: fixed !important; 
@@ -60,17 +72,31 @@ body.is-home::before {
   /* 移除 mask-image，因为我们要的是整体虚化，而不是底部渐变消失 */
 }
 
-/* 隐藏原有的 hero 背景，防止冲突 */
+/* ============================================================
+   区域 2.1：隐藏主题自带的 Hero 背景层，防止与自定义背景冲突
+   ⚠️ 一般不需要修改这里
+   ============================================================ */
 .vp-hero::before, .hero::before, .vp-home-hero::before {
   display: none !important;
 }
 
-/* 覆盖 VuePress 默认背景色，确保能透出 body::before 的图 (仅限首页) */
+/* ============================================================
+   区域 2.2：把所有默认白色/浅色背景强制设为透明（仅首页）
+   作用：让背景图片能透过各层容器显示出来
+   ⚠️ 一般不需要修改这里
+   ============================================================ */
 html, body.is-home, body.is-home #app, body.is-home .theme-container, body.is-home .vp-page, body.is-home .vp-page-meta, body.is-home .page {
     background-color: transparent !important;
 }
 
-/* 3. 文字内容层 (顶层) - 确保文字和按钮在图片之上 */
+/* ============================================================
+   区域 3：Hero 区大标题 / 按钮 / 图片 的文字样式
+   作用：让这些元素显示在背景图上方，并统一为白色带阴影
+   常用改动：
+     - color → 修改文字颜色（目前 white=白色）
+     - text-shadow → 文字阴影，格式：x偏移 y偏移 模糊半径 颜色
+                     加大最后的 rgba 值 = 阴影更深
+   ============================================================ */
 .vp-hero h1, .hero h1,
 .vp-hero .tagline, .hero .description,
 .vp-hero .actions, .hero .action,
@@ -84,7 +110,17 @@ html, body.is-home, body.is-home #app, body.is-home .theme-container, body.is-ho
   text-shadow: 0 2px 8px rgba(0,0,0,0.9);
 }
 
-/* 4. 特别针对 Tagline (副标题) 进行增强 - 使用最高优先级选择器 */
+/* ============================================================
+   区域 4：首页副标题（tagline）样式增强
+   作用：让副标题更显眼，带半透明黑底背景块
+   常用改动：
+     - font-size   → 字体大小（1.8rem = 约 29px）
+     - font-weight → 粗细（400=正常 700=粗体 900=最粗）
+     - background-color: rgba(0,0,0, X) → 黑底透明度
+                         X=0 全透明，X=1 全黑，推荐 0.4~0.7
+     - padding     → 背景块内边距（上下 左右）
+     - border-radius → 背景块圆角大小
+   ============================================================ */
 html body .vp-hero .tagline, 
 html body .hero .description,
 html body .vp-home-hero .tagline {
@@ -119,4 +155,113 @@ html body .vp-home-hero .tagline {
   /* 增加层级，防止被覆盖 */
   position: relative;
   z-index: 10;
+}
+
+/* ============================================================
+   区域 5：首页分栏卡片 — 整体网格布局
+   作用：控制卡片排列方式、每行数量、间距
+   常用改动：
+     - repeat(3, 1fr)  → 每行固定 3 列
+                          改成 repeat(2, 1fr) = 每行 2 个
+                          改成 repeat(4, 1fr) = 每行 4 个
+     - gap             → 卡片之间的间距，值越大间距越宽
+     - margin-top      → 卡片区域距离上方内容的距离
+     - padding         → 卡片区域左右内边距
+   ============================================================ */
+.custom-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 固定每行 3 列 */
+  gap: 16px;
+  margin-top: 2rem;
+  padding: 0 1rem;
+}
+
+/* ============================================================
+   区域 5.1：单个卡片容器样式
+   常用改动：
+     - padding         → 卡片内边距（上下 左右），越大卡片内部越宽松
+     - border-radius   → 卡片圆角（0=直角 20px=大圆角）
+     - background-color: rgba(R,G,B, 透明度)
+                         推荐范围 0.6~0.9，越小越透明
+                         240,244,248 = 冷白灰色调（浅色模式）
+     - backdrop-filter: blur(Xpx) → 卡片毛玻璃模糊度，0=无效果
+     - box-shadow      → 卡片投影深度
+   ============================================================ */
+.custom-feature {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.95rem 1rem;
+  border-radius: 12px;
+  background-color: rgba(240, 244, 248, 0.82); /* 冷白底，0.82=略透 */
+  border: 1px solid var(--c-border, #eaecef);
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(2px);
+}
+
+/* 深色模式下的卡片底色
+   改 rgba 第四个数字（透明度）可以控制深色模式下的透明程度 */
+html.dark .custom-feature {
+  background-color: rgba(31, 38, 46, 0.82); /* 深色底，0.82=略透 */
+  border-color: var(--c-border, #3e4c5a);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* 鼠标悬停时的动效
+   - translateY(-5px) → 卡片上浮 5px，负数=上移，改大数字=浮起更多
+   - border-color     → 悬停时的边框颜色（默认跟随主题色 #3eaf7c 绿色）
+   - box-shadow       → 悬停时投影变深，让卡片更有立体感 */
+.custom-feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--c-brand, #3eaf7c);
+}
+
+html.dark .custom-feature:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   区域 5.2：卡片标题样式
+   常用改动：
+     - font-size  → 标题字体大小（1.45rem ≈ 23px）
+     - color      → 标题颜色，可换成任意颜色如 #333 或 #1a73e8
+     - margin     → 标题与下方描述文字的间距
+   ============================================================ */
+.custom-feature h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  border-bottom: none;
+  color: var(--c-text, #2c3e50);
+}
+
+/* 覆盖主题默认 h2 样式，强制标题居中置顶
+   ⚠️ 这里用了高优先级选择器来确保覆盖主题自带的 h2 样式，不要删 */
+.custom-features .custom-feature h2,
+html body .theme-default-content .custom-features .custom-feature h2 {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  width: 100%;
+  text-align: center; /* 标题水平居中 */
+}
+
+/* ============================================================
+   区域 5.3：卡片描述文字样式
+   常用改动：
+     - color       → 描述文字颜色（默认 #6a8bad 蓝灰色）
+     - font-size   → 描述文字大小（不写则继承默认，约 1rem）
+     - line-height → 行高，越大行与行之间越宽松（1.6 = 1.6倍字号）
+     - text-align  → 对齐方式（center=居中 left=左对齐）
+   ============================================================ */
+.custom-feature p {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--c-text-light, #6a8bad);
+  line-height: 1.6;
 }

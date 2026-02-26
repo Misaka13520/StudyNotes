@@ -5,8 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:sync": "node scripts/sync-guide-readmes.mjs",
+    "docs:dev": "npm run docs:sync && vuepress dev docs",
+    "docs:build": "npm run docs:sync && vuepress build docs"
   },
   "keywords": [],
   "author": "",
