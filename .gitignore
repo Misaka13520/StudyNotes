@@ -20,3 +20,7 @@ Thumbs.db
 
 # 日志
 *.log
+
+# 本地备忘文档，不提交到仓库
+auto.md
+docs/guide/auto.md
