@@ -1,0 +1,122 @@
+/* 1. 针对 VuePress 2 默认主题 Hero 区域的容器 */
+.vp-hero, .hero, .vp-home-hero {
+  position: relative; 
+  z-index: 1; 
+
+  /* 核心修改：让容器宽度撑满整个屏幕宽度，不管是手机还是大屏电脑 */
+  width: 100vw !important; 
+  max-width: 100vw !important;
+  /* 解决可能出现的水平滚动条问题 (因为 vw 包含滚动条宽度) */
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 !important;
+
+  /* 撑满屏幕高度，display flex 用于垂直居中内容 */
+  min-height: 100vh; 
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden; 
+  background-color: transparent !important; 
+}
+
+/* 2. 背景图片层 (中层) */
+/* 
+   修改：不再使用 ::before 伪元素，因为伪元素在某些主题结构下 fixed 定位会失效。
+   我们直接在 body 上挂载一个全局的背景层，确保它永远在最底层且固定。
+   新增：只在首页 (.is-home) 显示背景图，其他页面隐藏。
+*/
+body.is-home::before {
+  content: "";
+  position: fixed !important; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  
+  /* 确保在所有内容之下 */
+  z-index: -999 !important; 
+  
+  background-image: url('/background.png');
+  background-size: cover; 
+  background-position: center center;
+  background-repeat: no-repeat;
+  
+  /* 
+     动态滤镜：使用 CSS 变量接收 JS 传来的滚动数据
+     --bg-brightness: 亮度，默认 1.0
+     --bg-blur: 模糊度，默认 0px
+  */
+  filter: brightness(var(--bg-brightness, 1.0)) blur(var(--bg-blur, 0px));
+  
+  /* 禁用指针事件，防止遮挡交互 */
+  pointer-events: none;
+  
+  /* 移除 mask-image，因为我们要的是整体虚化，而不是底部渐变消失 */
+}
+
+/* 隐藏原有的 hero 背景，防止冲突 */
+.vp-hero::before, .hero::before, .vp-home-hero::before {
+  display: none !important;
+}
+
+/* 覆盖 VuePress 默认背景色，确保能透出 body::before 的图 (仅限首页) */
+html, body.is-home, body.is-home #app, body.is-home .theme-container, body.is-home .vp-page, body.is-home .vp-page-meta, body.is-home .page {
+    background-color: transparent !important;
+}
+
+/* 3. 文字内容层 (顶层) - 确保文字和按钮在图片之上 */
+.vp-hero h1, .hero h1,
+.vp-hero .tagline, .hero .description,
+.vp-hero .actions, .hero .action,
+.vp-hero .hero-image, .hero .hero-image {
+  position: relative; 
+  z-index: 2; 
+  
+  /* 全局文字颜色：白色 */
+  color: white !important;
+  /* 文字阴影：增强在复杂背景上的可读性 (x偏移 y偏移 模糊半径 颜色) */
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+}
+
+/* 4. 特别针对 Tagline (副标题) 进行增强 - 使用最高优先级选择器 */
+html body .vp-hero .tagline, 
+html body .hero .description,
+html body .vp-home-hero .tagline {
+  /* 字体加粗：让文字更明显 (400=正常, 700=粗体, 900=更粗) */
+  font-weight: 700 !important;
+  
+  /* 字体大小：调大一点让它更显眼 (建议 1.6rem ~ 2.0rem) */
+  font-size: 1.8rem !important;
+
+  /* 透明度：确保完全不透明 */
+  opacity: 1 !important;
+  
+  /* 文字背景：为了让文字在复杂背景上也能看清，加一个半透明黑底 */
+  /* rgba(0,0,0, 0.4) 最后这个 0.4 是透明度，0是全透，1是全黑 */
+  background-color: rgba(0, 0, 0, 0.6) !important; 
+  
+  /* 内边距：让背景色包裹文字时留点空隙 (上下 8px, 左右 16px) */
+  padding: 12px 24px !important; 
+  
+  /* 圆角：让背景色块边缘圆润一些 */
+  border-radius: 8px !important;
+  
+  /* 边距：与上方标题的距离 */
+  margin-top: 24px !important;
+
+  /* 强制文字颜色 */
+  color: #fff !important;
+  
+  /* 确保它是块级或行内块级元素，以便背景色生效 */
+  display: inline-block !important;
+
+  /* 增加层级，防止被覆盖 */
+  position: relative;
+  z-index: 10;
+}
