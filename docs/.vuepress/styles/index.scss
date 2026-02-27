@@ -263,11 +263,15 @@ body.is-home::before {
   z-index: -999 !important; 
 
   /* 双层背景：图片(上层) + 渐变占位(下层)
-     浏览器会立即渲染渐变色，图片异步加载完成后自动盖在上面
-     不需要任何 JS 参与 */
-  background:
-    var(--hp-bg-image, url('/misaka.png')) var(--hp-bg-position, center center) / var(--hp-bg-size, cover) no-repeat,
+     浏览器立即渲染渐变色，图片异步加载完成后自动盖在上面
+     ❗ 不用 background 简写，拆开写确保 CSS 变量解析正确 */
+  background-color: #2a1a3e;
+  background-image:
+    var(--hp-bg-image, url('/misaka.png')),
     linear-gradient(135deg, #2a1a3e 0%, #1a2a4a 40%, #2c3e50 100%);
+  background-size: var(--hp-bg-size, cover), cover;
+  background-position: var(--hp-bg-position, center center), center center;
+  background-repeat: no-repeat, no-repeat;
   
   /* 
      动态滤镜：使用 CSS 变量接收 JS 传来的滚动数据
@@ -283,6 +287,13 @@ body.is-home::before {
   will-change: filter;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+}
+
+/* 手机端背景图位置修正：桌面端 -300px 在小屏幕上偏移过大，图片几乎被推出屏幕 */
+@media (max-width: 719px) {
+  body.is-home::before {
+    background-position: center center, center center;
+  }
 }
 
 /* ============================================================
