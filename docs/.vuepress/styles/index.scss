@@ -261,11 +261,13 @@ body.is-home::before {
   
   /* 确保在所有内容之下 */
   z-index: -999 !important; 
-  
-  background-image: var(--hp-bg-image, url('/background.png'));
-  background-size: var(--hp-bg-size, cover);
-  background-position: var(--hp-bg-position, center center);
-  background-repeat: no-repeat;
+
+  /* 双层背景：图片(上层) + 渐变占位(下层)
+     浏览器会立即渲染渐变色，图片异步加载完成后自动盖在上面
+     不需要任何 JS 参与 */
+  background:
+    var(--hp-bg-image, url('/misaka.png')) var(--hp-bg-position, center center) / var(--hp-bg-size, cover) no-repeat,
+    linear-gradient(135deg, #2a1a3e 0%, #1a2a4a 40%, #2c3e50 100%);
   
   /* 
      动态滤镜：使用 CSS 变量接收 JS 传来的滚动数据
@@ -281,8 +283,6 @@ body.is-home::before {
   will-change: filter;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
-  
-  /* 移除 mask-image，因为我们要的是整体虚化，而不是底部渐变消失 */
 }
 
 /* ============================================================

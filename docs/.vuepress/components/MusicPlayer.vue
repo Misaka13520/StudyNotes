@@ -227,6 +227,7 @@ function formatTime(sec) {
 const isDragging = ref(false)
 const playerPos = ref({ right: null, bottom: null }) // null = 用 CSS 变量默认值
 let dragState = null // { startX, startY, startRight, startBottom, moved }
+let lastTouchEndTime = 0 // 防止触摸后的幽灵鼠标事件
 
 const playerPositionStyle = computed(() => {
   if (playerPos.value.right === null) return {}
@@ -254,6 +255,10 @@ function onWindowResize() {
 }
 
 function onDragStart(e) {
+  // 防止触摸后的幽灵鼠标事件：触摸结束后 500ms 内忽略鼠标事件
+  // 手机浏览器触摸后会延迟发送 mousedown/mouseup，导致 togglePanel 触发两次（开→关）
+  if (!e.touches && Date.now() - lastTouchEndTime < 500) return
+
   // 获取初始坐标（兼容鼠标和触摸）
   const ev = e.touches ? e.touches[0] : e
   const el = playerRef.value
@@ -306,11 +311,16 @@ function onDragMove(e) {
   playerPos.value = { right: newRight, bottom: newBottom }
 }
 
-function onDragEnd() {
+function onDragEnd(e) {
   document.removeEventListener('mousemove', onDragMove)
   document.removeEventListener('mouseup', onDragEnd)
   document.removeEventListener('touchmove', onDragMove)
   document.removeEventListener('touchend', onDragEnd)
+
+  // 记录触摸结束时间，用于屏蔽后续幽灵鼠标事件
+  if (e?.type === 'touchend') {
+    lastTouchEndTime = Date.now()
+  }
 
   if (dragState && !dragState.moved) {
     // 没拖动 → 视为点击
