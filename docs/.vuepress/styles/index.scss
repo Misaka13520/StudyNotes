@@ -97,7 +97,7 @@
      格式：url('/文件名.jpg')  或  url('/文件名.png')
      换图片只需替换引号内的文件名
      改为 none 可隐藏背景图                                       */
-  --hp-bg-image: url('/misaka.png');
+  --hp-bg-image: url('/background.png');
 
   /* 背景图位置（第一个值=左右，第二个值=上下）
      center center = 居中（推荐）
@@ -105,7 +105,7 @@
      center bottom = 显示图片底部
      center 30%    = 偏上（数字越小越往上，0%=顶 50%=中 100%=底）
      center -50px  = 向上平移 50px（负值往上，正值往下）            */
-  --hp-bg-position: center -300px;
+  --hp-bg-position: center center;
 
   /* 背景图缩放方式
      cover     = 铺满屏幕，多余裁切（推荐，任何尺寸图片自动适应）
@@ -267,7 +267,7 @@ body.is-home::before {
      ❗ 不用 background 简写，拆开写确保 CSS 变量解析正确 */
   background-color: #2a1a3e;
   background-image:
-    var(--hp-bg-image, url('/misaka.png')),
+    var(--hp-bg-image, url('/background.png')),
     linear-gradient(135deg, #2a1a3e 0%, #1a2a4a 40%, #2c3e50 100%);
   background-size: var(--hp-bg-size, cover), cover;
   background-position: var(--hp-bg-position, center center), center center;

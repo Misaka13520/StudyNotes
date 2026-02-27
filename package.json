@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "docs:sync": "node scripts/sync-guide-readmes.mjs",
+    "docs:sync": "node scripts/sync-guide-readmes.mjs && node scripts/optimize-images.mjs",
     "docs:dev": "npm run docs:sync && vuepress dev docs",
     "docs:build": "npm run docs:sync && vuepress build docs"
   },

@@ -125,8 +125,9 @@ export default defineUserConfig({
   base: '/StudyNotes/',
 
   // 预加载首页背景图，加速首次渲染（避免等 CSS 解析完才开始下载）
+  // ⚠️ 如果运行过 optimize-images 生成了 WebP，把下面 png 换成 webp 可进一步加速
   head: [
-    ['link', { rel: 'preload', href: '/StudyNotes/misaka.png', as: 'image', type: 'image/png' }],
+    ['link', { rel: 'preload', href: '/StudyNotes/background.png', as: 'image', type: 'image/png', fetchpriority: 'high' }],
   ],
 
   // 注册客户端配置文件，用于执行 JS 滚动监听
