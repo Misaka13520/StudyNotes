@@ -124,6 +124,11 @@ export default defineUserConfig({
   // 如果你用的是 username.github.io 仓库（不带子路径），改为 '/'
   base: '/StudyNotes/',
 
+  // 预加载首页背景图，加速首次渲染（避免等 CSS 解析完才开始下载）
+  head: [
+    ['link', { rel: 'preload', href: '/StudyNotes/misaka.png', as: 'image', type: 'image/png' }],
+  ],
+
   // 注册客户端配置文件，用于执行 JS 滚动监听
   clientConfigFile: path.resolve(__dirname, './client.js'),
 

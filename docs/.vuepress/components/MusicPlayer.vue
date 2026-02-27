@@ -24,7 +24,7 @@
 
     <!-- 📻 展开面板 -->
     <transition name="panel-slide">
-      <div v-show="isExpanded" class="music-panel">
+      <div v-show="isExpanded" class="music-panel" :style="panelStyle">
         <!-- 左侧：唱片 + 尖刺 -->
         <div class="disc-wrapper" :class="{ active: isPlaying }">
           <span v-for="i in 20" :key="i" class="spike" :style="{
@@ -134,10 +134,16 @@ function togglePlay() {
   if (!audio) return
   if (isPlaying.value) {
     audio.pause()
+    isPlaying.value = false
   } else {
-    audio.play().catch(() => {})
+    // play() 返回 Promise：只有真正播放成功才更新状态
+    // 移动端浏览器首次播放常因自动播放策略而失败
+    audio.play().then(() => {
+      isPlaying.value = true
+    }).catch(() => {
+      isPlaying.value = false
+    })
   }
-  isPlaying.value = !isPlaying.value
 }
 
 function prevTrack() {
@@ -155,9 +161,12 @@ function playAfterSwitch() {
   if (!audio) return
   // 等 src 变化后自动播放
   setTimeout(() => {
-    audio.play().catch(() => {})
-    isPlaying.value = true
-  }, 100)
+    audio.play().then(() => {
+      isPlaying.value = true
+    }).catch(() => {
+      isPlaying.value = false
+    })
+  }, 150)
 }
 
 function seek(e) {
@@ -227,6 +236,23 @@ const playerPositionStyle = computed(() => {
   }
 })
 
+// 面板展开方向：检测圆球位置，自动翻转面板到可见区域
+const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
+
+const panelStyle = computed(() => {
+  const r = playerPos.value.right
+  if (r === null) return {}
+  // 当圆球偏左（right 值大），面板改为向右展开，避免被左侧遮挡
+  if (r > windowWidth.value - 300) {
+    return { right: 'auto', left: '0' }
+  }
+  return {}
+})
+
+function onWindowResize() {
+  windowWidth.value = window.innerWidth
+}
+
 function onDragStart(e) {
   // 获取初始坐标（兼容鼠标和触摸）
   const ev = e.touches ? e.touches[0] : e
@@ -244,6 +270,7 @@ function onDragStart(e) {
     startRight: currentRight,
     startBottom: currentBottom,
     moved: false,
+    isTouch: !!e.touches,
   }
 
   document.addEventListener('mousemove', onDragMove)
@@ -259,8 +286,9 @@ function onDragMove(e) {
   const dx = ev.clientX - dragState.startX
   const dy = ev.clientY - dragState.startY
 
-  // 移动超过 5px 才算拖拽（区分点击）
-  if (!dragState.moved && Math.abs(dx) < 5 && Math.abs(dy) < 5) return
+  // 移动超过阈值才算拖拽（区分点击）— 触摸设备阈值更大，防止手指抖动误判
+  const threshold = dragState.isTouch ? 15 : 5
+  if (!dragState.moved && Math.abs(dx) < threshold && Math.abs(dy) < threshold) return
   dragState.moved = true
   isDragging.value = true
 
@@ -314,6 +342,8 @@ onMounted(() => {
       }
     }
   } catch {}
+  // 监听窗口大小变化，用于面板方向自动翻转
+  window.addEventListener('resize', onWindowResize)
 })
 
 onUnmounted(() => {
@@ -322,6 +352,7 @@ onUnmounted(() => {
   document.removeEventListener('mouseup', onDragEnd)
   document.removeEventListener('touchmove', onDragMove)
   document.removeEventListener('touchend', onDragEnd)
+  window.removeEventListener('resize', onWindowResize)
 })
 </script>
 

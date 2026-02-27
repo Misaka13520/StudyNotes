@@ -276,6 +276,11 @@ body.is-home::before {
   
   /* 禁用指针事件，防止遮挡交互 */
   pointer-events: none;
+
+  /* GPU 加速：将背景层提升到独立合成层，大幅减少 filter 重绘开销 */
+  will-change: filter;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   
   /* 移除 mask-image，因为我们要的是整体虚化，而不是底部渐变消失 */
 }
@@ -509,6 +514,35 @@ html body .theme-default-content .custom-features .custom-feature h2 {
   color: var(--hp-card-desc-color, #6a8bad);
   font-size: var(--hp-card-desc-size, 0.95rem);
   line-height: 1.6;
+}
+
+/* ============================================================
+   区域 5.4：卡片响应式布局 — 平板 2 列、手机 1 列
+   ============================================================ */
+@media (max-width: 840px) {
+  .custom-features {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-features {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .custom-feature {
+    padding: 0.85rem 1rem;
+  }
+
+  .custom-feature h2 {
+    font-size: 1.25rem;
+  }
+
+  .custom-feature p {
+    font-size: 0.9rem;
+  }
 }
 
 /* ============================================================

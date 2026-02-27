@@ -6,3 +6,4 @@
 
 - [使用Vuepress实现静态博客](./01-Vue.md)
 - [使用 Git 和 GitHub Pages 将 VuePress 博客部署上线](./02-githubpages.md)
+- [在云服务器上部署AstrBot并通过Napcat接入QQ](./03-Srv_AstrBot_Napcat.md)
