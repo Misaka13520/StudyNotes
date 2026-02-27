@@ -1,6 +1,10 @@
 import { defineClientConfig } from '@vuepress/client'
+import MusicPlayer from './components/MusicPlayer.vue'
 
 export default defineClientConfig({
+  // 全局注册音乐播放器组件，使其在每个页面都自动挂载
+  rootComponents: [MusicPlayer],
+
   enhance({ app, router, siteData }) {
     if (typeof window !== 'undefined') {
       // 监听路由变化，给 body 添加/移除 is-home 类名

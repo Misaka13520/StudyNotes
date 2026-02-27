@@ -18,6 +18,32 @@ const parseArticleTitle = (articlePath, fallbackFileName) => {
   return parseHeading(articleContent, path.basename(fallbackFileName, '.md'))
 }
 
+// ========================
+// 🎵 自动扫描 public/ 下的音频文件，生成播放列表
+// 支持格式：.mp3 .flac .wav .ogg .aac .m4a .wma
+// 添加新音乐：把文件放进 docs/.vuepress/public/ 即可（支持子文件夹）
+// ⚠️ 添加后需要重启开发服务器才能识别新文件
+// ========================
+const audioExtensions = /\.(mp3|flac|wav|ogg|aac|m4a|wma)$/i
+
+const scanMusicFiles = (baseDir, subDir = '') => {
+  const fullDir = subDir ? path.join(baseDir, subDir) : baseDir
+  if (!fs.existsSync(fullDir)) return []
+  return fs.readdirSync(fullDir, { withFileTypes: true }).flatMap(entry => {
+    const relPath = subDir ? subDir + '/' + entry.name : entry.name
+    if (entry.isDirectory()) {
+      return scanMusicFiles(baseDir, relPath)
+    }
+    if (entry.isFile() && audioExtensions.test(entry.name)) {
+      return [{ name: entry.name.replace(audioExtensions, ''), file: relPath }]
+    }
+    return []
+  })
+}
+
+const publicDir = path.join(docsRoot, '.vuepress/public')
+const musicList = scanMusicFiles(publicDir)
+
 const categoryOrder = ['basic', 'project', 'reading', 'talk']
 
 const sortCategoryName = (left, right) => {
@@ -116,5 +142,12 @@ export default defineUserConfig({
     },
   }),
 
-  bundler: viteBundler(),
+  bundler: viteBundler({
+    viteOptions: {
+      define: {
+        // 构建时注入音乐列表到前端，MusicPlayer.vue 中通过 __MUSIC_LIST__ 读取
+        __MUSIC_LIST__: JSON.stringify(musicList),
+      },
+    },
+  }),
 })

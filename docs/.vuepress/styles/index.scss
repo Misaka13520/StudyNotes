@@ -1,4 +1,212 @@
 /* ============================================================
+   ██████████████████████████████████████████████████████████
+   🎨  首页字体颜色 + 字体大小 配置接口（改这里就够了）
+   ██████████████████████████████████████████████████████████
+
+   使用方式：直接在下面 :root 里修改对应变量的值即可。
+   浅色模式 → 改 :root 里的变量
+   深色模式 → 改 [data-theme='dark'] 里的对应变量
+
+   颜色格式：#十六进制 / rgb() / rgba() 均可
+   字号格式：rem（相对单位） 或 px（绝对单位）
+   ============================================================ */
+:root {
+  /* ---- Hero 区域（首屏大图上的文字） ---- */
+
+  /* 大标题颜色（"御坂13520号的学习笔记"）
+     背景图较深时推荐白色，背景图较亮时可改深色如 #1a1a1a  */
+  --hp-title-color: #ffffff;
+  /* 大标题字号（默认 3rem ≈ 48px，可改大改小）*/
+  --hp-title-size: 3rem;
+
+  /* 副标题文字颜色（"路虽远行则将至……"）
+     ⚠️ 副标题有深色半透明背景（--hp-tagline-bg），
+        填浅色才看得见，想用深色文字 → 先把 --hp-tagline-bg 改 transparent */
+  --hp-tagline-color: #ffffff;
+  /* 副标题字号（默认 1.8rem ≈ 29px）*/
+  --hp-tagline-size: 1.8rem;
+
+  /* 副标题背景块颜色（半透明黑底，最后数字是透明度 0~1）
+     0 = 全透明，1 = 全不透明，建议范围 0.4~0.7               */
+  --hp-tagline-bg: rgba(0, 0, 0, 0.4);
+
+  /* ---- 卡片区域（四个功能卡片） ---- */
+
+  /* 卡片标题颜色（💡基础知识 / 🛠️实战项目 等大字）*/
+  --hp-card-title-color: #2c3e50;
+  /* 卡片标题字号（默认 1.45rem ≈ 23px）*/
+  --hp-card-title-size: 1.45rem;
+
+  /* 卡片描述文字颜色（卡片下方小字说明）*/
+  --hp-card-desc-color: #4378ad;
+  /* 卡片描述字号（默认 0.95rem ≈ 15px）*/
+  --hp-card-desc-size: 0.95rem;
+
+  /* 卡片背景色（最后数字是透明度 0~1）
+     240,244,248 = 冷白灰；255,255,255 = 纯白  */
+  --hp-card-bg: rgba(240, 244, 248, 0.82);
+
+  /* ---- 正文内容区（Hero 下方：欢迎语 + 介绍段落） ---- */
+
+  /* "欢迎来到…" 大标题颜色 */
+  --hp-welcome-title-color: #ffffff;
+  /* 欢迎标题字号（默认 1.75rem ≈ 28px）*/
+  --hp-welcome-title-size: 1.75rem;
+
+  /* 标题下方装饰线颜色（改 transparent 可去掉） */
+  --hp-welcome-title-border: #eb86c9;
+
+  /* 介绍列表项文字颜色 */
+  --hp-intro-text-color: #493b4b;
+  /* 介绍列表字号（默认 0.97rem ≈ 16px）*/
+  --hp-intro-text-size: 1.0rem;
+
+  /* 介绍列表项背景卡片（最后数字=透明度 0~1） */
+  --hp-intro-item-bg: rgba(255, 255, 255, 0.62);
+
+  /* 介绍列表项左侧竖线颜色 */
+  --hp-intro-item-border: #3eaf7c;
+
+  /* ---- 顶部导航栏 ---- */
+
+  /* 导航栏背景色（支持 rgba 半透明）
+     如果用透明色，导航栏会有毛玻璃效果 */
+  --hp-navbar-bg: rgba(255, 255, 255, 0.85);
+
+  /* 站点标题（左上角品牌名）颜色 */
+  --hp-navbar-title-color: #2c3e50;
+  /* 站点标题字号（默认继承主题，约 1.3rem）*/
+  --hp-navbar-title-size: 1.3rem;
+
+  /* 导航链接默认颜色（如「指南」「关于」等）*/
+  --hp-navbar-link-color: #2c3e50;
+  /* 导航链接字号 */
+  --hp-navbar-link-size: 0.95rem;
+
+  /* 导航链接鼠标悬停颜色 */
+  --hp-navbar-link-hover: #eb86c9;
+  /* 导航链接当前激活页颜色（高亮正在访问的页面）*/
+  --hp-navbar-link-active: #eb86c9;
+
+  /* 导航栏底部分隔线颜色（改 transparent 可去掉）*/
+  --hp-navbar-border: #eaecef;
+
+  /* ---- 全局背景图 ---- */
+
+  /* 背景图片路径（图片放在 docs/.vuepress/public/ 下）
+     格式：url('/文件名.jpg')  或  url('/文件名.png')
+     换图片只需替换引号内的文件名
+     改为 none 可隐藏背景图                                       */
+  --hp-bg-image: url('/misaka.png');
+
+  /* 背景图位置（第一个值=左右，第二个值=上下）
+     center center = 居中（推荐）
+     center top    = 显示图片顶部
+     center bottom = 显示图片底部
+     center 30%    = 偏上（数字越小越往上，0%=顶 50%=中 100%=底）
+     center -50px  = 向上平移 50px（负值往上，正值往下）            */
+  --hp-bg-position: center -300px;
+
+  /* 背景图缩放方式
+     cover     = 铺满屏幕，多余裁切（推荐，任何尺寸图片自动适应）
+     contain   = 完整显示，可能有留白
+     100% 100% = 强制拉伸铺满（可能变形）                          */
+  --hp-bg-size: cover;
+
+  /* 非首页背景图透明度
+     0   = 不显示（默认，只有首页有背景图）
+     1   = 完全显示（所有页面都有背景图）
+     0.3 = 若隐若现效果                                           */
+  --hp-bg-other-opacity: 0;
+
+  /* ---- 音乐播放器浮动球 ---- */
+
+  /* 播放器位置（距右侧 / 距底部）
+     改这两个值可任意调整圆球在页面上的位置 */
+  --mp-position-right: 20px;
+  --mp-position-bottom: 80px;
+
+  /* 圆球大小（直径）*/
+  --mp-ball-size: 40px;
+
+  /* 圆球背景色（默认跟随主题色 --vp-c-accent）
+     如果想单独设色，取消注释并填入颜色即可 */
+  /* --mp-ball-bg: #eb86c9; */
+
+  /* 圆球音符图标颜色 */
+  --mp-ball-icon-color: #fff;
+
+  /* 展开面板背景色（支持 rgba 半透明 + 毛玻璃）*/
+  --mp-panel-bg: rgba(255, 255, 255, 0.92);
+  /* 面板边框 */
+  --mp-panel-border: rgba(0, 0, 0, 0.06);
+
+  /* 播放器内文字颜色（曲名、按钮等）*/
+  --mp-text-color: #2c3e50;
+  /* 播放器次要文字（时间显示等）*/
+  --mp-text-mute: #999;
+
+  /* 进度条背景色 */
+  --mp-progress-bg: rgba(0, 0, 0, 0.1);
+  /* 控制按钮背景 */
+  --mp-ctrl-bg: rgba(0, 0, 0, 0.05);
+  --mp-ctrl-hover: rgba(0, 0, 0, 0.1);
+
+  /* 展开面板宽度（整个播放器弹出框的宽）*/
+  --mp-panel-width: 280px;
+
+  /* 唱片区域大小（含尖刺环）*/
+  --mp-disc-size: 64px;
+  /* 黑胶唱片大小（中心圆盘）*/
+  --mp-disc-inner: 42px;
+
+  /* 上一曲 / 下一曲 按钮大小 */
+  --mp-btn-size: 30px;
+  /* 播放 / 暂停 按钮大小（中间大按钮）*/
+  --mp-btn-play-size: 34px;
+
+  /* 音量滑条最大宽度（越小越短）*/
+  --mp-vol-width: 66px;
+}
+
+/* ============================================================
+   深色模式颜色覆盖
+   ⚠️ VuePress 2 用 [data-theme='dark']，不是 html.dark
+   ============================================================ */
+[data-theme='dark'] {
+  --hp-title-color: #ffffff;
+  --hp-tagline-color: #ffffff;
+  --hp-tagline-bg: rgba(0, 0, 0, 0.7);
+
+  --hp-card-title-color: #d0dce8;
+  --hp-card-desc-color: #8baec9;
+  --hp-card-bg: rgba(31, 38, 46, 0.82);
+
+  --hp-welcome-title-color: #c8d8e8;
+  --hp-welcome-title-border: #eb86c9;
+  --hp-intro-text-color: #b8ccd8;
+  --hp-intro-item-bg: rgba(20, 30, 40, 0.65);
+  --hp-intro-item-border: #4abf8a;
+
+  /* 导航栏 — 深色模式 */
+  --hp-navbar-bg: rgba(30, 30, 35, 0.9);
+  --hp-navbar-title-color: #d0dce8;
+  --hp-navbar-link-color: #b8ccd8;
+  --hp-navbar-link-hover: #f0a8d8;
+  --hp-navbar-link-active: #f0a8d8;
+  --hp-navbar-border: #3e4c5a;
+
+  /* 音乐播放器 — 深色模式 */
+  --mp-panel-bg: rgba(30, 30, 40, 0.92);
+  --mp-panel-border: rgba(255, 255, 255, 0.08);
+  --mp-text-color: #d0dce8;
+  --mp-text-mute: #6b7b8e;
+  --mp-progress-bg: rgba(255, 255, 255, 0.1);
+  --mp-ctrl-bg: rgba(255, 255, 255, 0.08);
+  --mp-ctrl-hover: rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================================
    区域 1：Hero 主视觉容器
    作用：控制首页大标题 + 按钮区域的整体布局
    常用改动：
@@ -54,9 +262,9 @@ body.is-home::before {
   /* 确保在所有内容之下 */
   z-index: -999 !important; 
   
-  background-image: url('/background.png');
-  background-size: cover; 
-  background-position: center center;
+  background-image: var(--hp-bg-image, url('/background.png'));
+  background-size: var(--hp-bg-size, cover);
+  background-position: var(--hp-bg-position, center center);
   background-repeat: no-repeat;
   
   /* 
@@ -70,6 +278,33 @@ body.is-home::before {
   pointer-events: none;
   
   /* 移除 mask-image，因为我们要的是整体虚化，而不是底部渐变消失 */
+}
+
+/* ============================================================
+   区域 2.0.1：非首页背景图（默认隐藏）
+   修改 :root 中 --hp-bg-other-opacity 为 1 即可在所有页面显示背景
+   ⚠️ 启用后如果内容区是白底看不到背景，可能需要调整内容区背景透明度
+   ============================================================ */
+body:not(.is-home)::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -999;
+
+  background-image: var(--hp-bg-image, url('/background.png'));
+  background-size: var(--hp-bg-size, cover);
+  background-position: var(--hp-bg-position, center center);
+  background-repeat: no-repeat;
+
+  filter: brightness(var(--bg-brightness, 1.0)) blur(var(--bg-blur, 0px));
+  opacity: var(--hp-bg-other-opacity, 0);
+  pointer-events: none;
+  transition: opacity 0.5s ease;
 }
 
 /* ============================================================
@@ -91,70 +326,76 @@ html, body.is-home, body.is-home #app, body.is-home .theme-container, body.is-ho
 
 /* ============================================================
    区域 3：Hero 区大标题 / 按钮 / 图片 的文字样式
-   作用：让这些元素显示在背景图上方，并统一为白色带阴影
+   ⚠️ VuePress 2 实际类名：
+      - 大标题 = #main-title（不是 .hero h1）
+      - 副标题 = .vp-hero-description（不是 .tagline）
+      - 按钮区 = .vp-hero-actions
    常用改动：
-     - color → 修改文字颜色（目前 white=白色）
-     - text-shadow → 文字阴影，格式：x偏移 y偏移 模糊半径 颜色
-                     加大最后的 rgba 值 = 阴影更深
+     - color → 修改文字颜色
+     - text-shadow → 文字阴影
    ============================================================ */
-.vp-hero h1, .hero h1,
-.vp-hero .tagline, .hero .description,
-.vp-hero .actions, .hero .action,
-.vp-hero .hero-image, .hero .hero-image {
-  position: relative; 
-  z-index: 2; 
-  
-  /* 全局文字颜色：白色 */
-  color: white !important;
-  /* 文字阴影：增强在复杂背景上的可读性 (x偏移 y偏移 模糊半径 颜色) */
+#main-title {
+  position: relative;
+  z-index: 2;
+  /* 大标题颜色
+     ✏️ 改颜色 → :root 中的 --hp-title-color
+     ✏️ 改字号 → :root 中的 --hp-title-size                       */
+  color: var(--hp-title-color, white) !important;
+  font-size: var(--hp-title-size, 3rem) !important;
   text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+}
+
+.vp-hero-actions {
+  position: relative;
+  z-index: 2;
+}
+
+.vp-hero-image {
+  position: relative;
+  z-index: 2;
 }
 
 /* ============================================================
    区域 4：首页副标题（tagline）样式增强
-   作用：让副标题更显眼，带半透明黑底背景块
+   ⚠️ VuePress 2 副标题实际类名：.vp-hero-description
+      （不是 .tagline / .description）
    常用改动：
-     - font-size   → 字体大小（1.8rem = 约 29px）
-     - font-weight → 粗细（400=正常 700=粗体 900=最粗）
-     - background-color: rgba(0,0,0, X) → 黑底透明度
-                         X=0 全透明，X=1 全黑，推荐 0.4~0.7
-     - padding     → 背景块内边距（上下 左右）
-     - border-radius → 背景块圆角大小
+     - --hp-tagline-color → 副标题文字颜色
+     - --hp-tagline-size  → 副标题字号
+     - --hp-tagline-bg    → 副标题背景块颜色
+     - padding / border-radius → 背景块尺寸与圆角
    ============================================================ */
-html body .vp-hero .tagline, 
-html body .hero .description,
-html body .vp-home-hero .tagline {
-  /* 字体加粗：让文字更明显 (400=正常, 700=粗体, 900=更粗) */
+.vp-hero .vp-hero-description {
+  /* 字体加粗 (400=正常, 700=粗体, 900=更粗) */
   font-weight: 700 !important;
-  
-  /* 字体大小：调大一点让它更显眼 (建议 1.6rem ~ 2.0rem) */
-  font-size: 1.8rem !important;
 
-  /* 透明度：确保完全不透明 */
+  /* 字号
+     ✏️ 改字号 → :root 中的 --hp-tagline-size                     */
+  font-size: var(--hp-tagline-size, 1.8rem) !important;
+
+  /* 确保完全不透明 */
   opacity: 1 !important;
-  
-  /* 文字背景：为了让文字在复杂背景上也能看清，加一个半透明黑底 */
-  /* rgba(0,0,0, 0.4) 最后这个 0.4 是透明度，0是全透，1是全黑 */
-  background-color: rgba(0, 0, 0, 0.6) !important; 
-  
-  /* 内边距：让背景色包裹文字时留点空隙 (上下 8px, 左右 16px) */
-  padding: 12px 24px !important; 
-  
-  /* 圆角：让背景色块边缘圆润一些 */
+
+  /* 副标题文字颜色
+     ✏️ 改颜色 → :root 中的 --hp-tagline-color                    */
+  color: var(--hp-tagline-color, #fff) !important;
+
+  /* 文字背景块
+     ✏️ 改背景 → :root 中的 --hp-tagline-bg                       */
+  background-color: var(--hp-tagline-bg, rgba(0,0,0,0.6)) !important;
+
+  /* 内边距 */
+  padding: 12px 24px !important;
+  /* 圆角 */
   border-radius: 8px !important;
-  
-  /* 边距：与上方标题的距离 */
+  /* 与上方标题的距离 */
   margin-top: 24px !important;
 
-  /* 强制文字颜色 */
-  color: #fff !important;
-  
-  /* 确保它是块级或行内块级元素，以便背景色生效 */
   display: inline-block !important;
-
-  /* 增加层级，防止被覆盖 */
   position: relative;
   z-index: 10;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+  max-width: none !important;
 }
 
 /* ============================================================
@@ -194,8 +435,10 @@ html body .vp-home-hero .tagline {
   align-items: center;
   padding: 0.95rem 1rem;
   border-radius: 12px;
-  background-color: rgba(240, 244, 248, 0.82); /* 冷白底，0.82=略透 */
-  border: 1px solid var(--c-border, #eaecef);
+  /* 卡片背景色（浅色模式）
+     ✏️ 修改请到文件顶部 :root 中改 --hp-card-bg                  */
+  background-color: var(--hp-card-bg, rgba(240, 244, 248, 0.82));
+  border: 1px solid var(--vp-c-border, #eaecef);
   text-decoration: none !important;
   color: inherit !important;
   transition: all 0.3s ease;
@@ -204,24 +447,21 @@ html body .vp-home-hero .tagline {
 }
 
 /* 深色模式下的卡片底色
-   改 rgba 第四个数字（透明度）可以控制深色模式下的透明程度 */
-html.dark .custom-feature {
-  background-color: rgba(31, 38, 46, 0.82); /* 深色底，0.82=略透 */
-  border-color: var(--c-border, #3e4c5a);
+   ⚠️ VuePress 2 深色模式选择器：[data-theme='dark']              */
+[data-theme='dark'] .custom-feature {
+  background-color: var(--hp-card-bg, rgba(31, 38, 46, 0.82));
+  border-color: var(--vp-c-border, #3e4c5a);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
-/* 鼠标悬停时的动效
-   - translateY(-5px) → 卡片上浮 5px，负数=上移，改大数字=浮起更多
-   - border-color     → 悬停时的边框颜色（默认跟随主题色 #3eaf7c 绿色）
-   - box-shadow       → 悬停时投影变深，让卡片更有立体感 */
+/* 鼠标悬停时的动效 */
 .custom-feature:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: var(--c-brand, #3eaf7c);
+  border-color: var(--vp-c-accent, #3eaf7c);
 }
 
-html.dark .custom-feature:hover {
+[data-theme='dark'] .custom-feature:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
@@ -234,10 +474,12 @@ html.dark .custom-feature:hover {
    ============================================================ */
 .custom-feature h2 {
   margin: 0 0 0.6rem;
-  font-size: 1.45rem;
+  /* ✏️ 改字号 → :root 中的 --hp-card-title-size                   */
+  font-size: var(--hp-card-title-size, 1.45rem);
   line-height: 1.25;
   border-bottom: none;
-  color: var(--c-text, #2c3e50);
+  /* ✏️ 改颜色 → :root 中的 --hp-card-title-color                  */
+  color: var(--hp-card-title-color, #2c3e50);
 }
 
 /* 覆盖主题默认 h2 样式，强制标题居中置顶
@@ -262,6 +504,206 @@ html body .theme-default-content .custom-features .custom-feature h2 {
   margin: 0;
   width: 100%;
   text-align: center;
-  color: var(--c-text-light, #6a8bad);
+  /* ✏️ 改颜色 → :root 中的 --hp-card-desc-color
+     ✏️ 改字号 → :root 中的 --hp-card-desc-size                    */
+  color: var(--hp-card-desc-color, #6a8bad);
+  font-size: var(--hp-card-desc-size, 0.95rem);
   line-height: 1.6;
+}
+
+/* ============================================================
+   区域 6：首页正文内容区（Hero 下方：欢迎语 + 介绍段落）
+   ⚠️ VuePress 2 实际 DOM 结构是：
+      <main class="vp-home">
+        <header class="vp-hero">...</header>
+        <div vp-content>          ← 内容容器
+          <h2 id="欢迎来到…">…</h2>
+          <ul><li>…</li></ul>
+          <div class="custom-features">…</div>
+        </div>
+      </main>
+      所以选择器用 .vp-home [vp-content]，不是 .theme-default-content
+   常用改动（在文件顶部 :root 中改对应变量）：
+     - --hp-welcome-title-color  → "欢迎来到…" 标题文字颜色
+     - --hp-welcome-title-size   → "欢迎来到…" 标题字号
+     - --hp-welcome-title-border → 标题下方装饰线颜色
+     - --hp-intro-text-color     → 列表项正文颜色
+     - --hp-intro-text-size      → 列表项正文字号
+     - --hp-intro-item-bg        → 列表项背景卡片颜色
+     - --hp-intro-item-border    → 列表项左侧竖线颜色
+   ============================================================ */
+
+/* 6.0：正文容器 — 居中布局 + 内边距 */
+.vp-home [vp-content] {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 5rem;
+}
+
+/* 6.1："欢迎来到御坂13520号的博客" 大标题
+   用 h2[id] 精准匹配 Markdown 生成的标题（卡片内 h2 不带 id 属性）
+   ✏️ 颜色 → :root --hp-welcome-title-color
+   ✏️ 字号 → :root --hp-welcome-title-size
+   ✏️ 下划线 → :root --hp-welcome-title-border                    */
+.vp-home [vp-content] h2[id] {
+  font-size: var(--hp-welcome-title-size, 1.75rem) !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  color: var(--hp-welcome-title-color, #1a2a3a) !important;
+  border-bottom: 2.5px solid var(--hp-welcome-title-border, #3eaf7c) !important;
+  padding-bottom: 0.6rem !important;
+  margin-bottom: 1.6rem !important;
+  letter-spacing: 0.03em;
+}
+
+/* 6.2：介绍段落列表 — 去掉默认 ul 样式
+   ⚠️ 不能用 > 子选择器，因为 <Content /> 组件会多包一层 <div>    */
+.vp-home [vp-content] ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 2rem 0 !important;
+}
+
+/* 每条列表项：半透明卡片 + 左侧彩色竖线 + hover 右移动效
+   ✏️ 背景颜色 → :root --hp-intro-item-bg
+   ✏️ 文字颜色 → :root --hp-intro-text-color
+   ✏️ 文字字号 → :root --hp-intro-text-size
+   ✏️ 左侧线颜色 → :root --hp-intro-item-border                   */
+.vp-home [vp-content] ul li {
+  position: relative !important;
+  padding: 0.78rem 1.1rem 0.78rem 2.4rem !important;
+  margin-bottom: 0.8rem !important;
+  border-radius: 10px !important;
+  background: var(--hp-intro-item-bg, rgba(255, 255, 255, 0.62)) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+  border-left: 3.5px solid var(--hp-intro-item-border, #3eaf7c) !important;
+  color: var(--hp-intro-text-color, #2c3e50) !important;
+  -webkit-text-fill-color: var(--hp-intro-text-color, #2c3e50);
+  line-height: 1.78 !important;
+  font-size: var(--hp-intro-text-size, 0.97rem) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 列表项前的 ▸ 图标 */
+.vp-home [vp-content] ul li::before {
+  content: "▸";
+  position: absolute;
+  left: 0.78rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--hp-intro-item-border, #3eaf7c) !important;
+  -webkit-text-fill-color: var(--hp-intro-item-border, #3eaf7c);
+  font-size: 0.85rem;
+}
+
+/* hover：向右微移 */
+.vp-home [vp-content] ul li:hover {
+  transform: translateX(5px) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13) !important;
+}
+
+/* 6.3：深色模式 — 颜色变量在 [data-theme='dark'] 中自动切换
+   ⚠️ 一般不需要改这里，改文件顶部 [data-theme='dark'] 里的变量即可 */
+[data-theme='dark'] .vp-home [vp-content] ul li {
+  background: var(--hp-intro-item-bg) !important;
+  color: var(--hp-intro-text-color) !important;
+  -webkit-text-fill-color: var(--hp-intro-text-color);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* ============================================================
+   区域 7：顶部导航栏（Navbar）
+   ⚠️ VuePress 2 实际 DOM 结构：
+      <header class="vp-navbar" vp-navbar>
+        └ <span>  ← 品牌区域
+            └ <span class="vp-site-name">  ← 站点标题
+        └ <div class="vp-navbar-items-wrapper">
+            └ <nav class="vp-navbar-items">
+                └ <div class="vp-navbar-item">
+                    └ <a class="auto-link route-link-active"> ← 导航链接
+   常用改动（在文件顶部 :root 中改对应变量）：
+     - --hp-navbar-bg           → 导航栏背景色
+     - --hp-navbar-title-color  → 站点标题颜色
+     - --hp-navbar-title-size   → 站点标题字号
+     - --hp-navbar-link-color   → 导航链接默认颜色
+     - --hp-navbar-link-size    → 导航链接字号
+     - --hp-navbar-link-hover   → 导航链接悬停颜色
+     - --hp-navbar-link-active  → 导航链接当前激活颜色
+     - --hp-navbar-border       → 导航栏底部分隔线颜色
+   ============================================================ */
+
+/* 7.1：导航栏容器 — 背景 + 底部线 + 毛玻璃 */
+.vp-navbar {
+  background-color: var(--hp-navbar-bg, rgba(255, 255, 255, 0.85)) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid var(--hp-navbar-border, #eaecef) !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 7.2：站点标题（左上角品牌名）
+   ✏️ 改颜色 → :root --hp-navbar-title-color
+   ✏️ 改字号 → :root --hp-navbar-title-size                       */
+.vp-site-name {
+  color: var(--hp-navbar-title-color, #2c3e50) !important;
+  font-size: var(--hp-navbar-title-size, 1.3rem) !important;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* 7.3：导航链接（默认状态）
+   ✏️ 改颜色 → :root --hp-navbar-link-color
+   ✏️ 改字号 → :root --hp-navbar-link-size                        */
+.vp-navbar-items .auto-link {
+  color: var(--hp-navbar-link-color, #2c3e50) !important;
+  font-size: var(--hp-navbar-link-size, 0.95rem) !important;
+  transition: color 0.25s ease;
+}
+
+/* 7.4：导航链接 — 悬停状态
+   ✏️ 改颜色 → :root --hp-navbar-link-hover                       */
+.vp-navbar-item > .auto-link:hover,
+.vp-navbar-items .auto-link:hover {
+  color: var(--hp-navbar-link-hover, #eb86c9) !important;
+}
+
+/* 7.5：导航链接 — 当前激活页高亮
+   ✏️ 改颜色 → :root --hp-navbar-link-active
+   同时控制底部激活线颜色                                          */
+.vp-navbar-item > .auto-link.route-link-active {
+  color: var(--hp-navbar-link-active, #eb86c9) !important;
+  border-bottom-color: var(--hp-navbar-link-active, #eb86c9) !important;
+}
+
+/* 7.6：下拉菜单按钮颜色（如果有多级导航）*/
+.vp-navbar-dropdown-title {
+  color: var(--hp-navbar-link-color, #2c3e50) !important;
+  font-size: var(--hp-navbar-link-size, 0.95rem) !important;
+}
+
+.vp-navbar-dropdown-title:hover {
+  color: var(--hp-navbar-link-hover, #eb86c9) !important;
+}
+
+/* 7.7：深色模式 — 导航栏
+   ⚠️ 一般不需要改这里，改文件顶部 [data-theme='dark'] 里的变量即可 */
+[data-theme='dark'] .vp-navbar {
+  background-color: var(--hp-navbar-bg) !important;
+  border-bottom-color: var(--hp-navbar-border) !important;
+}
+
+[data-theme='dark'] .vp-site-name {
+  color: var(--hp-navbar-title-color) !important;
+}
+
+[data-theme='dark'] .vp-navbar-items .auto-link {
+  color: var(--hp-navbar-link-color) !important;
+}
+
+[data-theme='dark'] .vp-navbar-dropdown-title {
+  color: var(--hp-navbar-link-color) !important;
 }
