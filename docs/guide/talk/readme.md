@@ -5,3 +5,4 @@
 ## 文章列表
 
 - [基于VSCode使用SSH连接远程云端服务器](./01-VSCodeLinkSrv.md)
+- [WSL和云VPS科学上网](./02-NetLinkToWslAndVPS.md)

@@ -1,6 +1,6 @@
 ---
 home: true
-# 运行命令：npm run docs:dev
+# 写完blog后关闭当前dev server后运行命令：npm run docs:dev自动更新。
 heroText: 御坂13520号的学习笔记
 tagline: 路虽远行则将至，致敬每一行代码。
 actions:
@@ -34,7 +34,7 @@ footer: MIT Licensed | Copyright © 2026 Misaka
 <div class="custom-features">
   <RouterLink to="/guide/basic/" class="custom-feature">
     <h2>💡 基础知识</h2>
-    <p>记录编程语言的基础语法、核心概念与常见面试题。</p>
+    <p>记录编程语言的基础语法、核心概念与常见面试题(自己或他人的面试)。</p>
   </RouterLink>
   <RouterLink to="/guide/project/" class="custom-feature">
     <h2>🛠️ 实战项目</h2>

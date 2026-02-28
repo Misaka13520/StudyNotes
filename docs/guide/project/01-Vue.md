@@ -23,8 +23,7 @@
 - 创建一个名为 StudyNotes 的项目目录，并在VScode 中打开目录。
 
 ## 2. Node.js 环境安装
-> Node.js 是一个 JavaScript 运行环境，用于构建服务器端应用程序。
-在本项目中，Node.js 我们需要下载v22.12.0以上的版本【1】。
+> Node.js 是一个 JavaScript 运行环境，用于构建服务器端应用程序。在本项目中，Node.js 我们需要下载v22.12.0以上的版本【1】。
 - [Node.js官网](https://nodejs.org/zh-cn/download)
 本案例在node.js官网下载时，我们不选择下载使用Docker的node.js镜像，而是选择下载 .msi 结尾的安装包直接装【2】。
 - [快捷下载Node.js-v22.12.0(Win-X64)](https://nodejs.org/dist/v22.12.0/node-v22.12.0-x64.msi)
