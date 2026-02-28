@@ -4,8 +4,6 @@
 
 > WSL 和云 VPS 运行的都是 Linux 系统，但 WSL 的网络环境与云 VPS 的网络环境不同。
 
-> 参考文献：[云端 VPS 连接不到外网？这样救回来](https://orangetz07.github.io/StudyNotes/exp/sys/vpsnetwork/)
-
 - []WSL通过内网 IP实现科学上网 
 - []云VPS和WSL的网络环境差异
 - []解决云VPS科学上网问题
@@ -119,3 +117,7 @@ cd clash-for-linux-install
 proxychains4 bash install.sh
 ```
 - 尚未写完......
+
+## 4. 参考文献与致谢
+- 参考文献：[云端 VPS 连接不到外网？这样救回来](https://orangetz07.github.io/StudyNotes/exp/sys/vpsnetwork/)
+- 致谢：[orangetz07](https://github.com/orangeTZ07)
