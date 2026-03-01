@@ -118,6 +118,5 @@ proxychains4 bash install.sh
 ```
 - 尚未写完......
 
-## 4. 参考文献与致谢
-- 参考文献：[云端 VPS 连接不到外网？这样救回来](https://orangetz07.github.io/StudyNotes/exp/sys/vpsnetwork/)
-- 致谢：[orangetz07](https://github.com/orangeTZ07)
+## 4. 参考文献
+- 参考文献：[云端 VPS 连接不到外网？这样救回来](https://orangetz07.github.io/StudyNotes/exp/sys/vpsnetwork/)from：[orangetz07](https://github.com/orangeTZ07)
