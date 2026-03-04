@@ -61,7 +61,7 @@ SSH 连接需要单独安装两个扩展：
 
 ::: tip 提示
 如果顶部下拉菜单显示的是 WSL，请将其切换为 **Remotes (Tunnels/SSH)**。
-![alt text](image.png)
+![alt text](talkPic/image.png)
 :::
 
 - 添加新服务器：在 **SSH** 这一栏的旁边，点击 **`+`（加号）** 图标。然后在VSCode 顶部弹出的一个输入框，在这里输入 SSH 连接命令，格式为：

@@ -28,7 +28,7 @@
 本案例在node.js官网下载时，我们不选择下载使用Docker的node.js镜像，而是选择下载 .msi 结尾的安装包直接装【2】。
 - [快捷下载Node.js-v22.12.0(Win-X64)](https://nodejs.org/dist/v22.12.0/node-v22.12.0-x64.msi)
 下载完，双击运行安装包 -> 一路点击 Next -> 重启目录夹 -> 打开终端（ctrl ~）-> 输入命令`node -v`检查版本与是否安装成功
- > ![node -v](image.png)
+ > ![node -v](projectPic/image.png)
 
 ## 3. Git 环境安装
 > Git 是一个开源的分布式版本控制软件，用于管理代码的版本控制。本项目中，Git 我们需要下载v2.x以上的版本。
@@ -38,7 +38,8 @@ git config user.name
 git config user.email
 ```
 > 输出结果：
-> ![alt text](image-1.png)![alt text](image-2.png)
+> ![alt text](projectPic/image-1.png)
+![alt text](projectPic/image-2.png)
 >> 如果没输出，执行：
 ```bash
 git config --global user.name "改为你的GitHub用户名"
@@ -180,7 +181,7 @@ npm run docs:dev
 > VuePress 的默认主题使用了 SCSS 来写样式，底层的打包工具 Vite 现在默认要求使用性能更好的 sass-embedded 编译器来处理这些样式文件。
 - 在`docs/.vuepress/` 文件夹下，新建一个文件夹叫 `public`用于后续存放图片。VuePress 规定：放在 `public` 里的文件，打包时会被自动复制到网站根目录。在`readme.md` 中的`heroImage` 处添加首页大图;在`config.js`中的`logo`处添加logo。
 "
-![alt text](image-3.png)
+![alt text](projectPic/image-3.png)
 - 如果觉得图小想要实现“大图铺满背景 + 底部渐变虚化 + 文字在上方清晰可见”等需求，我们需要利用 CSS 的 ::before 伪元素技术，创建一个“虚拟层”放在文字下面，专门放图片和做虚化处理，这样就不会影响到文字的清晰度。此处不做过多赘述，使用AI进行代码编写或请自行查看[官方文档](https://vuepress.vuejs.org/zh/guide/custom-theme.html#%E5%AE%89%E8%A3%85-sass-%E7%BB%84%E4%BB%B6)。
 
 ## 【】解释

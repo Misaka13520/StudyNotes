@@ -30,7 +30,7 @@ export http_proxy="http://$hostip:HTTP代理服务器端口号"
 export https_proxy="http://$hostip:HTTP代理服务器端口号"
 export all_proxy="socks5://$hostip:SOCKS代理服务器端口号"
 ```
-![alt text](image-1.png)
+![alt text](talkPic/image-1.png)
 - 可以将以上命令添加到 `~/.bashrc` 文件中，这样每次启动 WSL 时，代理都会自动设置。
 - 测试代理：你可以使用 curl 命令来测试代理是否生效。例如：
 ```bash
@@ -78,7 +78,7 @@ ssh -N -R SOCKS_PORT:127.0.0.1:SOCKS_PORT -R HTTP_PORT:127.0.0.1:HTTP_PORT user@
 :::
 
 > 如果出现如下的类似报错，请检查你的SSH隧道是否启动？
-![alt text](image-2.png)
+![alt text](talkPic/image-2.png)
 并验证隧道状态在云VPS端执行：
 ```bash
 netstat -tlnp | grep HTTP_PORT
@@ -116,7 +116,6 @@ cd clash-for-linux-install
 
 proxychains4 bash install.sh
 ```
-- 尚未写完......
 
 ## 4. 参考文献
 - 参考文献：[云端 VPS 连接不到外网？这样救回来](https://orangetz07.github.io/StudyNotes/exp/sys/vpsnetwork/)from：[orangetz07](https://github.com/orangeTZ07)
