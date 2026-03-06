@@ -8,3 +8,4 @@
 - [WSL和云VPS科学上网](./02-NetLinkToWslAndVPS.md)
 - [编译EGO-Planner源码并编译时遇到Intel-RealSense SDK找不到的问题](./03-Ego.md)
 - [基于江协标准库所出现的定时器5678以及串口45等片上外设无法使用的问题解析](./04-STC32TIMproblem.md)
+- [多机实现在VLAN状态下的SSH远程连接访问](./05-ZeroTier.md)
